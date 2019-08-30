@@ -1,0 +1,16 @@
+{
+  "name": "pr-slackbot",
+  "version": "1.0.0",
+  "description": "node app to interface with github and slack with the purpose of delivering PR review requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "author": "Turner Davis",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/events-api": "^2.3.0",
+    "@slack/web-api": "^5.1.0"
+  }
+}
