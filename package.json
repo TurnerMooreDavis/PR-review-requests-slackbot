@@ -2,15 +2,26 @@
   "name": "pr-slackbot",
   "version": "1.0.0",
   "description": "node app to interface with github and slack with the purpose of delivering PR review requests",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js"
+    "start": "./node_modules/.bin/nodemon ./dist/index.js",
+    "dev": "./node_modules/.bin/nodemon ./dist/index.js --watch dist/**",
+    "watch": "./node_modules/.bin/tsc -w",
+    "test": "NODE_ENV=testing node ./dist/scripts/run-migrations; NODE_ENV=testing ava --serial ./dist/test",
+    "tcp-server": "CONFIG_PATH=./config.toml node ./dist/scripts/tcpserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TurnerMooreDavis/PR-review-requests-slackbot"
   },
   "author": "Turner Davis",
   "license": "MIT",
   "dependencies": {
     "@slack/events-api": "^2.3.0",
-    "@slack/web-api": "^5.1.0"
+    "@slack/web-api": "^5.1.0",
+    "nodemon": "1.19.0",
+    "tslint": "~5.9.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
   }
 }

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "allowJs": false,
+    "noLib": false,
+    "jsx": "react",
+    "outDir": "dist",
+    "lib": [ "es2017" ]
+  },
+  "include": [
+    "src/**/*",
+    "typings.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "static"
+  ]
+}
