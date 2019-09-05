@@ -1,6 +1,6 @@
 import { sendSlackMessage } from './slack'
 import { getPrReviewRequests} from './github'
-
+import {redisCli, getRedisKey, setRedisKey} from './redis'
 export class GithubPoller {
   errorCount = 0
   pollTimeout: number
@@ -28,9 +28,17 @@ export class GithubPoller {
     }
     for (let req of revReqs) {
       const message = `your review was requested for PR: <${req.subject.url}>`
-      sendSlackMessage(message)
+      const messageSentDateString=  await getRedisKey(redisCli, String(req.id))
+      if(!messageSentDateString) {
+        sendSlackMessage(message)
+        .then( async() => {
+          return await setRedisKey(redisCli, String(req.id), String(new Date())) 
+        })
+      } else {
+        console.log('no new pull request review requests')
+        return
+      }
     }
-  
   }
   async timeoutP(timeout: number) {
    return new Promise((resolve, reject) => {

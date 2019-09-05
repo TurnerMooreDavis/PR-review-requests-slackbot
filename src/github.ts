@@ -37,7 +37,6 @@ export const getPrReviewRequests = async () => {
     if (revReqs == []) {
       return null
     }
-    console.log(revReqs)
     return revReqs
   })
   .catch((err) => {
