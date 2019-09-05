@@ -27,9 +27,10 @@ export class GithubPoller {
       return 
     }
     for (let req of revReqs) {
-      const message = `your review was requested for PR: <${req.subject.url}>`
-      const messageSentDateString=  await getRedisKey(redisCli, String(req.id))
+      const messageSentDateString = await getRedisKey(redisCli, String(req.id))
       if(!messageSentDateString) {
+        const message = `your review was requested for PR: <${req.subject.url}>`
+        console.log('new pr request detected, sending message', message)
         sendSlackMessage(message)
         .then( async() => {
           return await setRedisKey(redisCli, String(req.id), String(new Date())) 

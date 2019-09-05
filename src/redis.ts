@@ -1,7 +1,9 @@
 import * as redis from 'redis'    
 import {promisify} from 'util'
-
-export const redisCli = redis.createClient();
+const opts : redis.ClientOpts =  {
+  db: 3
+}
+export const redisCli = redis.createClient(opts)
 
 export async function setRedisKey(cli: redis.RedisClient, key: string, val: string) {
   const setAsync = promisify(cli.set).bind(cli)
