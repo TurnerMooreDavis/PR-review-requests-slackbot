@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig} from 'axios'
-
+import { replace } from 'lodash'
 interface GithubNotification {
   id: number,
   unread: boolean,
@@ -21,7 +21,7 @@ export const getPrReviewRequests = async () => {
   if (!username || !token) {
     throw new Error('github username or token not present')
   }
-  const url = 'https://api.github.com/notifications'
+  const url = 'https://api.github.com/notifications?all=true'
   const config : AxiosRequestConfig = {
     auth: {
       username,
@@ -56,9 +56,18 @@ const coerceGithubNotification = (data: any) : GithubNotification | null  => {
     reason: data.reason,
     subject: {
       title: data.subject.title,
-      url: data.subject.url
+      url: coerceGithubUrl(data.subject.url)
     }
   }  
 } 
+
+function coerceGithubUrl(url: string | null) : string {
+  if(!url) {
+    throw new Error('No PR URL')
+  }
+  const url2 = replace(url, 'api.', '')
+  const url3 = replace(url2, '/repos', '')
+  return replace(url3, 'pulls', 'pull')
+}
 
 

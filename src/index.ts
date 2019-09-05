@@ -1,3 +1,4 @@
-import { pollAndSend} from './poller'
+import {GithubPoller } from './poller'
 
-pollAndSend()
+const poller = new GithubPoller (5000)
+poller.start()
