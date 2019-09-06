@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig} from 'axios'
 import { replace } from 'lodash'
+import {configs } from './config'
 interface GithubNotification {
   id: number,
   unread: boolean,
@@ -16,8 +17,8 @@ interface GithubNotificationSubject {
   url: string
 }
 export const getPrReviewRequests = async () => {
-  const username = process.env.GITHUB_USERNAME
-  const token = process.env.GITHUB_OAUTH_TOKEN
+  const username = configs.githubUserName 
+  const token = configs.githubToken 
   if (!username || !token) {
     throw new Error('github username or token not present')
   }

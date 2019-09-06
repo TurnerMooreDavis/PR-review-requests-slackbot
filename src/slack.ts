@@ -1,15 +1,16 @@
 import { WebClient} from "@slack/web-api"
+import { configs } from './config'
 interface WebClientChannel {
   id: string
 }
 
 export const sendSlackMessage = async (message: string) => {
-  const token = process.env.PR_REVIEW_REQUEST_TOKEN 
+  const token = configs.slackToken 
   if (!token) {
     throw new Error('undefined slackbot token')
   }
   const web = new WebClient(token)
-  const userId = process.env.SLACK_USER_ID
+  const userId = configs.slackUserId 
   if (!userId) {
     throw new Error('undefined slack user id')
   }
