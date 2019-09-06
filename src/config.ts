@@ -37,8 +37,11 @@ export interface ConfigVars {
   githubToken: string 
 }
 
-if (!isPlainObject(tc.auth)) {
-  throw new Error('Missing auth stanza in config')
+if (!isPlainObject(tc.github)) {
+  throw new Error('Missing github stanza in config')
+}
+if (!isPlainObject(tc.slack)) {
+  throw new Error('Missing slack stanza in config')
 }
 configValidate(tc, 'is string', 'slack', ['user_id','token'], isString)
 
